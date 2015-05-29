@@ -5,16 +5,16 @@
  */
 package com.ratcash.multilogin.authenticators;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import name.aikesommer.authenticator.AuthenticationRequest;
 import name.aikesommer.authenticator.Primary;
 
-@RequestScoped
+@ApplicationScoped
 @Primary
 public class SampleOAuth extends OAuth2ResourceAuthenticator {
 
 	public SampleOAuth() {
-		System.out.println("Created");
+		System.out.println("Cr eated");
 	}
 
 	@Override

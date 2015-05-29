@@ -5,30 +5,37 @@
  */
 package com.ratcash.multilogin.authenticators;
 
-import javax.servlet.ServletContext;
+import javax.inject.Inject;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import name.aikesommer.authenticator.Registry;
+import javax.servlet.annotation.WebListener;
+import org.javaee7.jaspic.common.JaspicUtils;
 
 /**
  * This is not used. It was replaced by active CDI bean lookup from within AuthenticRoast
  */
-//@WebListener
+@WebListener
 public class AuthenticatorRegistrar implements ServletContextListener {
-//	@Inject 
-	SampleOAuth oauth = new SampleOAuth();
+	
+	@Inject
+	AppAuthModule authModule;
+	
+	String regId;
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		ServletContext sc = null;
-		sc = sce.getServletContext();
+		regId = JaspicUtils.registerSAM(sce.getServletContext(), authModule);
+//		ServletContext sc = null;
+//		sc = sce.getServletContext();
 		// register AuthenticRoast authenticator
-		System.out.println("registration");
-		Registry.forContext( sc ).register( oauth );
+		System.out.println("registration returned: " + regId);
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
+		System.out.println("RegId = " + regId);
+		boolean result = JaspicUtils.unregisterSAM(sce.getServletContext(), regId);
+		System.out.println("result = " + result);
 		// do nothing...
 //		ServletContext sc = null;
 //		sc = sce.getServletContext();

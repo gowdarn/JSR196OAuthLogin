@@ -1,0 +1,14 @@
+
+build/
+target/
+bin/
+.project
+.classpath
+.settings
+login.properties
+test-output/
+metamodel/
+nb-configuration.xml
+nbactions.xml
+createDDL.jdbc
+derby.log

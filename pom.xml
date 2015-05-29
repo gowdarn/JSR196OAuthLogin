@@ -14,9 +14,8 @@
 		</dependency>
 		<dependency>
             <groupId>name.aikesommer</groupId>
-            <artifactId>AuthenticRoast-API</artifactId>
+            <artifactId>AuthenticRoast-Impl</artifactId>
             <version>0.3.4-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
 		<dependency>
 			<groupId>org.apache.oltu.oauth2</groupId>
