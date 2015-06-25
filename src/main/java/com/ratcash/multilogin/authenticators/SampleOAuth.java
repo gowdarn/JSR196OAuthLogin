@@ -5,24 +5,25 @@
  */
 package com.ratcash.multilogin.authenticators;
 
+import name.aikesommer.authenticator.modules.OAuth2ResourceAuthenticator;
 import javax.enterprise.context.ApplicationScoped;
 import name.aikesommer.authenticator.AuthenticationRequest;
-import name.aikesommer.authenticator.Primary;
+import name.aikesommer.authenticator.SimplePrincipal;
 
 @ApplicationScoped
-@Primary
 public class SampleOAuth extends OAuth2ResourceAuthenticator {
 
-	public SampleOAuth() {
-		System.out.println("Cr eated");
-	}
 
 	@Override
-	public boolean isTokenValid(String access_token, AuthenticationRequest request) {
+	public SimplePrincipal isTokenValid(String access_token, AuthenticationRequest request) {
 		//some JAX-RS call to the Authorization Server (and cache it using Hazelcast)
 		
-		System.out.println("Called. Token=" + access_token);
-		return access_token.contentEquals("mytoken");
+		System.out.println("Validating OAuth token=" + access_token);
+		if(access_token.contentEquals("mytoken")) {
+			SimplePrincipal user = new SimplePrincipal("api", "api");
+			return user;
+		}
+		return null;
 	}
 
 	@Override

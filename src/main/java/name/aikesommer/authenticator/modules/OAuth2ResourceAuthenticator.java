@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.authenticators;
+package name.aikesommer.authenticator.modules;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -26,9 +26,9 @@ public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator
 	 * Implement this to do the access_token validation
 	 * @param access_token
 	 * @param request
-	 * @return 
+	 * @return null if the token is not valid
 	 */
-	public abstract boolean isTokenValid(String access_token, AuthenticationRequest request);
+	public abstract SimplePrincipal isTokenValid(String access_token, AuthenticationRequest request);
 	
 	/**
      * Return the realm-name used for basic authentication.
@@ -46,10 +46,10 @@ public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator
 			// Get the access token
             String accessToken = oauthRequest.getAccessToken();
 			
-			if(isTokenValid(accessToken, request)) {
-				System.out.println("Success ...");
-				SimplePrincipal user = new SimplePrincipal("api", "api");
-				manager.register(request, user);
+			SimplePrincipal p = isTokenValid(accessToken, request);
+			if(p != null) {
+				System.out.println("OAuth token validated. Result: PASS");
+				manager.register(request, p);
 				return AuthenticationRequest.Status.Success;
 			}
 			else

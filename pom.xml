@@ -13,11 +13,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-            <groupId>name.aikesommer</groupId>
-            <artifactId>AuthenticRoast-Impl</artifactId>
-            <version>0.3.4-SNAPSHOT</version>
-        </dependency>
-		<dependency>
 			<groupId>org.apache.oltu.oauth2</groupId>
 			<artifactId>org.apache.oltu.oauth2.resourceserver</artifactId>
 			<version>1.0.0</version>
