@@ -1,5 +1,0 @@
-com\omnibene\multilogin\authenticators\AuthenticatorRegistrar.class
-com\omnibene\multilogin\authenticators\OAuth2ResourceAuthenticator.class
-com\omnibene\multilogin\boundary\services\AppConfig.class
-com\omnibene\multilogin\boundary\services\TestService.class
-com\omnibene\multilogin\authenticators\SampleOAuth.class
