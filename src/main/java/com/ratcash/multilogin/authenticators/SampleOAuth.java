@@ -19,7 +19,8 @@ public class SampleOAuth extends ResourceAuthenticator {
 		//some JAX-RS call to the Authorization Server (and cache it using Hazelcast)
 		
 		System.out.println("Validating OAuth token=" + access_token);
-		if(access_token.contentEquals("mytoken")) {
+		String expectedToken = "mytoken";
+		if(access_token != null && expectedToken.contentEquals(access_token)) {
 			SimplePrincipal user = new SimplePrincipal("api", "api");
 			return user;
 		}
