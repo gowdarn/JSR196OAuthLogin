@@ -34,4 +34,13 @@ public class OAuthConstants {
 
     public static final String OAUTH_HEADER_NAME = "Bearer";
 	
+	public static enum GRANT_TYPE {
+		AUTHORIZATION_CODE,
+		PASSWORD,
+		CLIENT_CREDENTIALS;
+
+		public static GRANT_TYPE fromString(String str) {
+			return valueOf(str.toUpperCase());
+		}
+	}
 }
