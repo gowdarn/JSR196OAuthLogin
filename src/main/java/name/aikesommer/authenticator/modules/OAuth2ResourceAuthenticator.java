@@ -1,24 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *    Copyright (C) 2015 OmniBene
+ *
+ *
+ *    This library is free software; you can redistribute it and/or
+ *    modify it under the terms of the GNU Lesser General Public
+ *    License as published by the Free Software Foundation; either
+ *    version 3 of the License, or (at your option) any later version.
+ *
+ *    This library is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *    Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General
+ *    Public License along with this library; if not, write to the
+ *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *    Boston, MA 02110-1301 USA
  */
 package name.aikesommer.authenticator.modules;
 
+import com.ratcash.multilogin.oauth.OAuthConstants;
+import com.ratcash.multilogin.oauth.OAuthException;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
 import name.aikesommer.authenticator.AuthenticationRequest;
 import name.aikesommer.authenticator.PluggableAuthenticator;
 import name.aikesommer.authenticator.SimplePrincipal;
-import org.apache.oltu.oauth2.common.OAuth;
-import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
-import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
-import org.apache.oltu.oauth2.common.message.OAuthResponse;
-import org.apache.oltu.oauth2.common.message.types.ParameterStyle;
-import org.apache.oltu.oauth2.rs.request.OAuthAccessResourceRequest;
-import org.apache.oltu.oauth2.rs.response.OAuthRSResponse;
 
 public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator {
 	
@@ -39,39 +51,37 @@ public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator
 
 	@Override
 	public AuthenticationRequest.Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+		// Make the OAuth Request out of this request and validate it
+		// Specify where you expect OAuth access token (request header, body or query string)
+		String accessToken;
 		try {
-			// Make the OAuth Request out of this request and validate it
-			// Specify where you expect OAuth access token (request header, body or query string)
-			OAuthAccessResourceRequest oauthRequest = new OAuthAccessResourceRequest(request.getHttpServletRequest(), ParameterStyle.HEADER);
-			// Get the access token
-            String accessToken = oauthRequest.getAccessToken();
-			
-			SimplePrincipal p = isTokenValid(accessToken, request);
-			if(p != null) {
-				System.out.println("OAuth token validated. Result: PASS");
-				manager.register(request, p);
-				return AuthenticationRequest.Status.Success;
-			}
-			else
-				return AuthenticationRequest.Status.Failure;
-		} catch (OAuthSystemException|OAuthProblemException ex) {
+			accessToken = getOAuthToken(request.getHttpServletRequest());
+		} catch (OAuthException ex) {
+			HttpServletResponse resp = request.getHttpServletResponse();
+			resp.setHeader("Error", ex.getMessage());
 			return AuthenticationRequest.Status.None;
 		}
+
+		if(accessToken == null) {
+			// token was not found
+			return AuthenticationRequest.Status.None;
+		}
+			
+		SimplePrincipal p = isTokenValid(accessToken, request);
+		if(p != null) {
+			manager.register(request, p);
+			return AuthenticationRequest.Status.Success;
+		}
+		else
+			return AuthenticationRequest.Status.Failure;
 	}
 
 	@Override
 	public AuthenticationRequest.Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
 		HttpServletResponse resp = request.getHttpServletResponse();
-		
 		try {
-			OAuthResponse oauthResponse = OAuthRSResponse
-					.errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
-					.setRealm(getRealmName())
-					.buildHeaderMessage();
-			resp.setHeader(OAuth.HeaderType.WWW_AUTHENTICATE, oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));
+			resp.setHeader(HttpHeaders.WWW_AUTHENTICATE, OAuthConstants.OAUTH_HEADER_NAME + " realm=\"" + getRealmName() + "\"");
 			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		} catch (OAuthSystemException ex) {
-			Logger.getLogger(OAuth2ResourceAuthenticator.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
 			Logger.getLogger(OAuth2ResourceAuthenticator.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -82,6 +92,29 @@ public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator
 	@Override
 	public AuthenticationRequest.ManageAction manage(AuthenticationManager manager, AuthenticationRequest request) {
 		 return AuthenticationRequest.ManageAction.None;
+	}
+	
+	public String getOAuthToken(HttpServletRequest request) throws OAuthException {
+		Enumeration<String> authHeaders = request.getHeaders(HttpHeaders.AUTHORIZATION);
+		
+		String token = null;
+		while(authHeaders.hasMoreElements()) {
+			String headerValue = authHeaders.nextElement();
+			for(String headerParam : headerValue.split(",")) {
+				String[] pair = headerParam.trim().split("[ :]");
+				if(pair.length != 2)
+					continue;
+
+				if(pair[0].equalsIgnoreCase(OAuthConstants.OAUTH_HEADER_NAME)) {
+					if(token == null)
+						token = pair[1];
+					else
+						throw new OAuthException(HttpHeaders.AUTHORIZATION + " header(s) containing multiple " + OAuthConstants.OAUTH_HEADER_NAME + " tokens");
+				}
+			}
+			
+		}
+		return token;
 	}
 	
 }
