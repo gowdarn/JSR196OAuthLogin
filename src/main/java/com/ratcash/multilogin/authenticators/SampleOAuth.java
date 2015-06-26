@@ -5,13 +5,13 @@
  */
 package com.ratcash.multilogin.authenticators;
 
-import name.aikesommer.authenticator.modules.OAuth2ResourceAuthenticator;
+import com.ratcash.multilogin.oauth.ResourceAuthenticator;
 import javax.enterprise.context.ApplicationScoped;
 import name.aikesommer.authenticator.AuthenticationRequest;
 import name.aikesommer.authenticator.SimplePrincipal;
 
 @ApplicationScoped
-public class SampleOAuth extends OAuth2ResourceAuthenticator {
+public class SampleOAuth extends ResourceAuthenticator {
 
 
 	@Override

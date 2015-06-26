@@ -17,10 +17,8 @@
  *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *    Boston, MA 02110-1301 USA
  */
-package name.aikesommer.authenticator.modules;
+package com.ratcash.multilogin.oauth;
 
-import com.ratcash.multilogin.oauth.OAuthConstants;
-import com.ratcash.multilogin.oauth.OAuthException;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -32,7 +30,7 @@ import name.aikesommer.authenticator.AuthenticationRequest;
 import name.aikesommer.authenticator.PluggableAuthenticator;
 import name.aikesommer.authenticator.SimplePrincipal;
 
-public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator {
+public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 	
 	/**
 	 * Implement this to do the access_token validation
@@ -83,7 +81,7 @@ public abstract class OAuth2ResourceAuthenticator extends PluggableAuthenticator
 			resp.setHeader(HttpHeaders.WWW_AUTHENTICATE, OAuthConstants.OAUTH_HEADER_NAME + " realm=\"" + getRealmName() + "\"");
 			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 		} catch (IOException ex) {
-			Logger.getLogger(OAuth2ResourceAuthenticator.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ResourceAuthenticator.class.getName()).log(Level.SEVERE, null, ex);
 		}
  
 		return AuthenticationRequest.Status.Continue;
