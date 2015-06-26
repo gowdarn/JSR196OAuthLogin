@@ -1,5 +1,6 @@
 /**
- *    Copyright (C) 2007-2010 Aike J Sommer (http://aikesommer.name/)
+ *    Copyright (C) 2015 OmniBene
+ *	  Parts (C) 2007-2010 Aike J Sommer (http://aikesommer.name/)
  *
  *    This file is part of AuthenticRoast.
  *
