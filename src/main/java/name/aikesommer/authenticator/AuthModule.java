@@ -51,6 +51,8 @@ import name.aikesommer.authenticator.AuthenticationRequest.Status;
  */
 public abstract class AuthModule extends AuthenticationManagerBase implements ServerAuthModule,
         PluggableAuthenticator.AuthenticationManager {
+	
+	private static final String IS_MANDATORY = "javax.security.auth.message.MessagePolicy.isMandatory";
 
     private CallbackHandler handler;
 
@@ -104,8 +106,9 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
 		
         HttpServletRequest request = (HttpServletRequest) info.getRequestMessage();
         HttpServletResponse response = (HttpServletResponse) info.getResponseMessage();
-
-		boolean mandatory = requestPolicy != null ? requestPolicy.isMandatory() : true;
+		
+		
+		boolean mandatory = isProtectedResource(info);
         JSR196Request authReq = new AuthenticationRequestImpl.JSR196(request, response,
                 clientSubject, mandatory);
 
@@ -217,4 +220,8 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
         }
         super.register(request, simplePrincipal);
     }
+	
+	public static boolean isProtectedResource(MessageInfo messageInfo) {
+		return Boolean.valueOf((String) messageInfo.getMap().get(IS_MANDATORY));
+	}
 }
