@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/templates/common/commonLayout.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml"   
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+				>
+	<ui:define name="title">
+		<title>Restricted page for users</title>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="jumbotron"><h1>Restricted section</h1>
+			<p>If you can see this, you have successfully authenticated with a 'user' role</p></div>
+		<f:view>
+			<div class="table-responsive">
+				<div class="col-md-6 col-xs-12">
+					<div class="page-header"><h3>Restricted section</h3></div>
+					<p>Empty for now</p>
+				</div>
+			</div>
+
+		</f:view>
+	</ui:define>
+
+	<ui:define name="footer">
+		<ui:include src="/WEB-INF/templates/common/commonFooter.xhtml" />
+	</ui:define>
+
+</ui:composition>
