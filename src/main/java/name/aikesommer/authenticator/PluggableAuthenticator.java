@@ -180,7 +180,7 @@ public abstract class PluggableAuthenticator {
         public void clearRequest(AuthenticationRequest request);
         
         /**
-         * Check wether this is the resubmit of a previuosly stored
+         * Check whether this is the resubmit of a previously stored
          * request.
          *
          * @param request The AuthenticationRequest encapsulating all data

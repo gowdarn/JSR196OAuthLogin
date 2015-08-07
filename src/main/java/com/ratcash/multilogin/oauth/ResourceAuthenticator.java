@@ -19,10 +19,7 @@
  */
 package com.ratcash.multilogin.oauth;
 
-import java.io.IOException;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
@@ -51,6 +48,12 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 	public AuthenticationRequest.Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
 		// Make the OAuth Request out of this request and validate it
 		// Specify where you expect OAuth access token (request header, body or query string)
+		String requestURI = request.getRequestPath();
+//        boolean isApiUrl = requestURI.startsWith("/api");
+//		if(!isApiUrl) {
+//			return AuthenticationRequest.Status.None;
+//		}
+		
 		String accessToken;
 		try {
 			accessToken = getOAuthToken(request.getHttpServletRequest());
@@ -76,15 +79,7 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 
 	@Override
 	public AuthenticationRequest.Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
-		HttpServletResponse resp = request.getHttpServletResponse();
-		try {
-			resp.setHeader(HttpHeaders.WWW_AUTHENTICATE, OAuthConstants.OAUTH_HEADER_NAME + " realm=\"" + getRealmName() + "\"");
-			resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		} catch (IOException ex) {
-			Logger.getLogger(ResourceAuthenticator.class.getName()).log(Level.SEVERE, null, ex);
-		}
- 
-		return AuthenticationRequest.Status.Continue;
+		return AuthenticationRequest.Status.None;
 	}
 
 	@Override
@@ -107,7 +102,8 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 					if(token == null)
 						token = pair[1];
 					else
-						throw new OAuthException(HttpHeaders.AUTHORIZATION + " header(s) containing multiple " + OAuthConstants.OAUTH_HEADER_NAME + " tokens");
+						throw new OAuthException(HttpHeaders.AUTHORIZATION + " header(s) containing multiple " 
+								+ OAuthConstants.OAUTH_HEADER_NAME + " tokens");
 				}
 			}
 			

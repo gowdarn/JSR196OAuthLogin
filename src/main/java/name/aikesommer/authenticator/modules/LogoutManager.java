@@ -29,6 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Set;
+import javax.enterprise.context.ApplicationScoped;
 import name.aikesommer.authenticator.AuthenticationRequest.ManageAction;
 import name.aikesommer.authenticator.AuthenticationRequest.Status;
 
@@ -39,6 +40,7 @@ import name.aikesommer.authenticator.AuthenticationRequest.Status;
  * 
  * @author Aike J Sommer
  */
+@ApplicationScoped
 public class LogoutManager extends PluggableAuthenticator {
 
     public static final String LOGOUT_ACTION = "/j_security_exit";

@@ -10,14 +10,17 @@ import javax.inject.Inject;
 import name.aikesommer.authenticator.AuthModule;
 import name.aikesommer.authenticator.PluggableAuthenticator;
 
-
 @ApplicationScoped
 public class AppAuthModule extends AuthModule {
+//	@Inject
+//	SampleOAuth oauth;
+
 	@Inject
-	SampleOAuth oauth;
+	@Primary
+	AuthWalker walker;
 
 	@Override
 	protected PluggableAuthenticator getPrimaryAuthenticator() {
-		return oauth;
+		return walker;
 	}
 }

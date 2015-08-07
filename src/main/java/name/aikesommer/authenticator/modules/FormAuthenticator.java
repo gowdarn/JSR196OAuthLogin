@@ -49,23 +49,23 @@ public abstract class FormAuthenticator extends PluggableAuthenticator {
      * 
      * @param username The username entered on the login-form.
      * @param password The password entered on the login-form.
-     * @return true if the credentials are valid.
+     * @return a non-null Object (the user Account) if the credentials are valid.
      */
-    protected abstract boolean checkCredentials(AuthenticationManager manager, AuthenticationRequest request, String username, String password);
+    protected abstract Object checkCredentials(AuthenticationManager manager, AuthenticationRequest request, String username, String password);
     
     /**
      * Create a SimplePrincipal from the username given.
      * 
-     * @param username The username entered on the login-form.
+     * @param userAccount The username entered on the login-form.
      * @return A SimplePrincipal instance representing the user.
      */
-    protected abstract SimplePrincipal loadPrincipal(AuthenticationManager manager, AuthenticationRequest request, String username);
+    protected abstract SimplePrincipal loadPrincipal(AuthenticationManager manager, AuthenticationRequest request, Object userAccount);
     
     /**
      * Overwrite this to specify a different login-page.
      */
     protected String getLoginPage() {
-        return "/login.jsp";
+        return "/login.xhtml";
     }
 
     /**
@@ -100,8 +100,9 @@ public abstract class FormAuthenticator extends PluggableAuthenticator {
             String password = request.getParameter(LOGIN_PASSWORD);
 
             if (password != null) {
-                if (checkCredentials(manager, request, user, password)) {
-                    request.getSessionMap().put(PRINCIPAL_NOTE, loadPrincipal(manager, request, user));
+				Object userAccount = checkCredentials(manager, request, user, password);
+                if (userAccount != null) {
+                    request.getSessionMap().put(PRINCIPAL_NOTE, loadPrincipal(manager, request, userAccount));
                     String queryString = request.getHttpServletRequest().getQueryString();
                     if (queryString != null && queryString.length() > 0) {
                         manager.addQueryString(request, queryString);
