@@ -53,12 +53,6 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 	public AuthenticationRequest.Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
 		// Make the OAuth Request out of this request and validate it
 		// Specify where you expect OAuth access token (request header, body or query string)
-		String requestURI = request.getRequestPath();
-//        boolean isApiUrl = requestURI.startsWith("/api");
-//		if(!isApiUrl) {
-//			return AuthenticationRequest.Status.None;
-//		}
-		
 		String accessToken;
 		try {
 			accessToken = getOAuthToken(request.getHttpServletRequest());
@@ -84,10 +78,10 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 	
 	@Override
 	public AuthenticationRequest.Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
-//		manager.saveRequest(request);
-//        manager.forward(request, getLoginPage());
-//        return AuthenticationRequest.Status.Continue;
-		return AuthenticationRequest.Status.None;
+		HttpServletResponse resp = request.getHttpServletResponse();
+		resp.setHeader(HttpHeaders.WWW_AUTHENTICATE, OAuthConstants.OAUTH_HEADER_NAME + " realm=\"" + getRealmName() + "\"");
+ 
+		return AuthenticationRequest.Status.Continue;
 	}
 
 	@Override

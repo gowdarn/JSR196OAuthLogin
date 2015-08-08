@@ -70,10 +70,12 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 		Iterator<PluggableAuthenticator> iterator = sortedIterator(getAuthenticators());
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
-			Status status = pa.validateAuthenticationInfo(manager, request);
-			System.out.println("--- TryAuthenticate: PA = " + pa + " status= " + status);
-			if (status != null && status != Status.None) {
-				return status;
+			if(pa.isApplicable(request)) {
+				Status status = pa.validateAuthenticationInfo(manager, request);
+				System.out.println("--- TryAuthenticate: PA = " + pa + " status= " + status);
+				if (status != null && status != Status.None && status != Status.Not_Applicable) {
+					return status;
+				}
 			}
 		}
 
@@ -87,10 +89,12 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 		Iterator<PluggableAuthenticator> iterator = sortedIterator(getAuthenticators());
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
-			Status status = pa.initiateAuthentication(manager, request);
-			System.out.println("--- Authenticate: PA = " + pa + " status= " + status);
-			if (status != null && status != Status.None) {
-				return status;
+			if(pa.isApplicable(request)) {
+				Status status = pa.initiateAuthentication(manager, request);
+				System.out.println("--- Authenticate: PA = " + pa + " status= " + status);
+				if (status != null && status != Status.None && status != Status.Not_Applicable) {
+					return status;
+				}
 			}
 		}
 

@@ -31,7 +31,7 @@ public class SampleOAuth extends ResourceAuthenticator {
 	protected String getRealmName() {
 		return "ACME";
 	}
-	
+
 	/**
      * Overwrite this to specify a different login-page.
      */
@@ -41,7 +41,13 @@ public class SampleOAuth extends ResourceAuthenticator {
 
 	@Override
 	public int getPriority() {
-		return 10;
+		return 10	;
+	}
+	
+	@Override
+	public boolean isApplicable(AuthenticationRequest request) {
+		String requestURI = request.getRequestPath();
+		return requestURI.startsWith("/api");
 	}
 	
 }

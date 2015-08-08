@@ -153,6 +153,7 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
                     }
                 case Continue:
                 case Failure:
+				case Not_Applicable:
                     response.setStatus(response.SC_UNAUTHORIZED);
                     return AuthStatus.SEND_CONTINUE;
                 default:

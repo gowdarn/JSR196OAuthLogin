@@ -42,7 +42,7 @@ public interface AuthenticationRequest {
      */
     public static enum Status {
 
-        Success, Continue, Failure, None
+        Success, Continue, Failure, None, Not_Applicable
     }
 
     /**

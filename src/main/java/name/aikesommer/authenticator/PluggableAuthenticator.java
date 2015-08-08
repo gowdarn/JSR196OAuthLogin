@@ -133,6 +133,14 @@ public abstract class PluggableAuthenticator implements Comparable {
 		return Integer.valueOf(getPriority()).compareTo(((PluggableAuthenticator)o).getPriority());
 	}
 	
+	/**
+	 * Override this method if you wish not to carry out expensive checks, if the request's URL is not in your scope
+	 * @param request
+	 * @return 
+	 */
+	public boolean isApplicable(AuthenticationRequest request) {
+		return true;
+	}
 	
     
     /**
