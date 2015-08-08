@@ -45,7 +45,7 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
     protected abstract String getRealmName();
 
 	@Override
-	public AuthenticationRequest.Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+	public AuthenticationRequest.Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
 		// Make the OAuth Request out of this request and validate it
 		// Specify where you expect OAuth access token (request header, body or query string)
 		String requestURI = request.getRequestPath();
@@ -78,7 +78,7 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 	}
 
 	@Override
-	public AuthenticationRequest.Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
+	public AuthenticationRequest.Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
 		return AuthenticationRequest.Status.None;
 	}
 

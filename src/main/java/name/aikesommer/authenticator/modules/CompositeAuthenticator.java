@@ -50,13 +50,13 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 	protected abstract Iterator<PluggableAuthenticator> getAuthenticators();
 
 	@Override
-	public Status tryAuthenticate(AuthenticationManager manager,
+	public Status validateAuthenticationInfo(AuthenticationManager manager,
 			AuthenticationRequest request) {
 
 		Iterator<PluggableAuthenticator> iterator = getAuthenticators();
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
-			Status status = pa.tryAuthenticate(manager, request);
+			Status status = pa.validateAuthenticationInfo(manager, request);
 			System.out.println("--- TryAuthenticate: PA = " + pa + " status= " + status);
 			if (status != null && status != Status.None) {
 				return status;
@@ -67,13 +67,13 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 	}
 
 	@Override
-	public Status authenticate(AuthenticationManager manager,
+	public Status initiateAuthentication(AuthenticationManager manager,
 			AuthenticationRequest request) {
 
 		Iterator<PluggableAuthenticator> iterator = getAuthenticators();
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
-			Status status = pa.authenticate(manager, request);
+			Status status = pa.initiateAuthentication(manager, request);
 			System.out.println("--- Authenticate: PA = " + pa + " status= " + status);
 			if (status != null && status != Status.None) {
 				return status;

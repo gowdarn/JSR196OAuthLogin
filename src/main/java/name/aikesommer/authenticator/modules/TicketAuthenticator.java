@@ -55,7 +55,7 @@ public abstract class TicketAuthenticator extends PluggableAuthenticator {
     protected abstract SimplePrincipal loadPrincipal(AuthenticationManager manager, AuthenticationRequest request, String ticket);
 
     @Override
-    public Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
         String ticket = request.getParameter(TICKET_PARAM);
         if (ticket != null) {
             if (checkTicket(manager, request, ticket)) {
@@ -70,7 +70,7 @@ public abstract class TicketAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
         return Status.None;
     }
 

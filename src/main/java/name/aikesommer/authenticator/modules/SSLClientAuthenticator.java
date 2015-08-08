@@ -69,7 +69,7 @@ public abstract class SSLClientAuthenticator extends PluggableAuthenticator
     protected abstract SimplePrincipal loadPrincipal(AuthenticationManager manager, AuthenticationRequest request, X509Certificate[] certs);
 
     @Override
-    public Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
         X509Certificate[]       certs = (X509Certificate[])request
                         .getHttpServletRequest()
                         .getAttribute("javax.servlet.request.X509Certificate");
@@ -84,7 +84,7 @@ public abstract class SSLClientAuthenticator extends PluggableAuthenticator
     }
 
     @Override
-    public Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
         return Status.None;
     }
 

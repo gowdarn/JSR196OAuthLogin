@@ -85,12 +85,12 @@ public class LogoutManager extends PluggableAuthenticator {
     }
 
     @Override
-    public Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
         return Status.None;
     }
 
     @Override
-    public Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
         return Status.None;
     }
 

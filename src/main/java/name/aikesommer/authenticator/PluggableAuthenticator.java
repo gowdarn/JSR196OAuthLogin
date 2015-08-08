@@ -87,12 +87,12 @@ public abstract class PluggableAuthenticator {
      *         is in progress (e.g. forwarded to a login-page) or Status.Failure 
      *         if some error occurred.
      */
-    public abstract AuthenticationRequest.Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request);
+    public abstract AuthenticationRequest.Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request);
     
     /**
      * This method is called when an unauthenticated request is made, the
-     * requested resource requires authentication and tryAuthenticate 
-     * returned Status.None. This is a good place to tell the caller to provide the
+	 * requested resource requires authentication and validateAuthenticationInfo 
+	 * returned Status.None. This is a good place to tell the caller to provide the
 	 * authentication information
      * 
      * @param manager The AuthenticationManager that allows for access 
@@ -104,7 +104,7 @@ public abstract class PluggableAuthenticator {
      *         authentication is in progress (e.g. forwarded to a login-page) or 
      *         Status.Failure if some error occurred.
      */
-    public abstract AuthenticationRequest.Status authenticate(AuthenticationManager manager, AuthenticationRequest request);
+    public abstract AuthenticationRequest.Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request);
     
     /**
      * This method allows for managing user-session, such as logging a user out.

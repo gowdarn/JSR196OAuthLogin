@@ -138,7 +138,7 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
              * that now. The actual process of authentication will be done 
              * by the authenticator class in our web-app.
              */
-            Status status = authenticator.tryAuthenticate(this, authReq);
+            Status status = authenticator.validateAuthenticationInfo(this, authReq);
 
             switch (status) {
                 case Success:
@@ -147,7 +147,7 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
                     if (!mandatory) {
                         return AuthStatus.SUCCESS;
                     }
-                    status = authenticator.authenticate(this, authReq);
+                    status = authenticator.initiateAuthentication(this, authReq);
                     if (status == Status.Success) {
                         return AuthStatus.SUCCESS;
                     }

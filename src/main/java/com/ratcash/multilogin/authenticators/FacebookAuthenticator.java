@@ -74,7 +74,7 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public AuthenticationRequest.Status tryAuthenticate(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
+    public AuthenticationRequest.Status validateAuthenticationInfo(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
         if (manager.matchesRequest(request) && request.getSessionMap().containsKey(PRINCIPAL_NOTE)) {
             manager.register(request, (SimplePrincipal) request.getSessionMap().get(PRINCIPAL_NOTE));
             request.getSessionMap().remove(PRINCIPAL_NOTE);
@@ -116,7 +116,7 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public AuthenticationRequest.Status authenticate(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
+    public AuthenticationRequest.Status initiateAuthentication(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
 //        manager.saveRequest(request);
 //        manager.forward(request, getLoginPage());
         return AuthenticationRequest.Status.None;

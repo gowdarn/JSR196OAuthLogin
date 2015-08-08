@@ -95,7 +95,7 @@ public abstract class BasicAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
         String username;
         if ((username = checkAuthentication(manager, request)) != null) {
             manager.register(request, loadPrincipal(manager, request, username));
@@ -105,7 +105,7 @@ public abstract class BasicAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
         request.getHttpServletResponse().setHeader("WWW-Authenticate",
                 "Basic realm=\"" + getRealmName() + "\"");
         try {

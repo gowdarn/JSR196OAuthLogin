@@ -84,7 +84,7 @@ public abstract class FormAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public Status tryAuthenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
         if (manager.matchesRequest(request) && request.getSessionMap().containsKey(PRINCIPAL_NOTE)) {
             manager.register(request, (SimplePrincipal) request.getSessionMap().get(PRINCIPAL_NOTE));
             request.getSessionMap().remove(PRINCIPAL_NOTE);
@@ -125,7 +125,7 @@ public abstract class FormAuthenticator extends PluggableAuthenticator {
     }
 
     @Override
-    public Status authenticate(AuthenticationManager manager, AuthenticationRequest request) {
+    public Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
         manager.saveRequest(request);
         manager.forward(request, getLoginPage());
         return Status.Continue;
