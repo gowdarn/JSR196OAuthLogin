@@ -119,7 +119,7 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
     public AuthenticationRequest.Status authenticate(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
 //        manager.saveRequest(request);
 //        manager.forward(request, getLoginPage());
-        return AuthenticationRequest.Status.Continue;
+        return AuthenticationRequest.Status.None;
     }
 
     @Override
