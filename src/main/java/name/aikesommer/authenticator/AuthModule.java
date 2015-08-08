@@ -44,8 +44,7 @@ import name.aikesommer.authenticator.AuthenticationRequest.Status;
 
 
 /**
- * This is the main class called by the container. You probably dont wanna
- * call this class directly.
+ * This is the main class called by the container. You probably don't want to call this class directly.
  * 
  * @author Aike J Sommer
  */
@@ -62,7 +61,6 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
 
     private MessagePolicy requestPolicy;
 
-    private boolean success;
 
 	@Override
     public void initialize(MessagePolicy requestPolicy, MessagePolicy responsePolicy,
@@ -71,7 +69,6 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
         this.responsePolicy = responsePolicy;
         this.handler = handler;
         this.options = options;
-        this.success = false;
     }
 
 	@Override
@@ -129,7 +126,6 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
                 switch (action) {
                     case None:
                         createPrincipal(simplePrincipal, clientSubject);
-                        success = true;
                         return AuthStatus.SUCCESS;
                     case Clear:
 						principalStore.invalidate();
@@ -146,16 +142,13 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
 
             switch (status) {
                 case Success:
-                    success = true;
                     return AuthStatus.SUCCESS;
                 case None:
                     if (!mandatory) {
-                        success = true;
                         return AuthStatus.SUCCESS;
                     }
                     status = authenticator.authenticate(this, authReq);
                     if (status == Status.Success) {
-                        success = true;
                         return AuthStatus.SUCCESS;
                     }
                 case Continue:
@@ -185,7 +178,13 @@ public abstract class AuthModule extends AuthenticationManagerBase implements Se
 
 	@Override
     public AuthStatus secureResponse(MessageInfo info, Subject serviceSubject) throws AuthException {
-        return success ? AuthStatus.SEND_SUCCESS : AuthStatus.SEND_CONTINUE;
+		HttpServletResponse response = (HttpServletResponse) info.getResponseMessage();
+		if(response.getStatus() > 400) {
+			return AuthStatus.SEND_CONTINUE;
+		} else {
+			return AuthStatus.SEND_SUCCESS;
+		}
+//        return success ? AuthStatus.SEND_SUCCESS : AuthStatus.SEND_CONTINUE;
     }
 
 	@Override
