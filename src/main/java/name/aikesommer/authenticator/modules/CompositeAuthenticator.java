@@ -24,9 +24,12 @@
  */
 package name.aikesommer.authenticator.modules;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import name.aikesommer.authenticator.PluggableAuthenticator;
-import name.aikesommer.authenticator.AuthenticationRequest;
 import java.util.Iterator;
+import java.util.List;
+import name.aikesommer.authenticator.AuthenticationRequest;
 import name.aikesommer.authenticator.AuthenticationRequest.ManageAction;
 import name.aikesommer.authenticator.AuthenticationRequest.Status;
 
@@ -49,11 +52,22 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 	 */
 	protected abstract Iterator<PluggableAuthenticator> getAuthenticators();
 
+	public static Iterator<PluggableAuthenticator> sortedIterator(Iterator<PluggableAuthenticator> it) {
+		List<PluggableAuthenticator> list = new ArrayList<>();
+		while (it.hasNext()) {
+			list.add(it.next());
+		}
+
+		Collections.sort(list);
+		return list.iterator();
+	}
+
+
 	@Override
 	public Status validateAuthenticationInfo(AuthenticationManager manager,
 			AuthenticationRequest request) {
 
-		Iterator<PluggableAuthenticator> iterator = getAuthenticators();
+		Iterator<PluggableAuthenticator> iterator = sortedIterator(getAuthenticators());
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
 			Status status = pa.validateAuthenticationInfo(manager, request);
@@ -70,7 +84,7 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 	public Status initiateAuthentication(AuthenticationManager manager,
 			AuthenticationRequest request) {
 
-		Iterator<PluggableAuthenticator> iterator = getAuthenticators();
+		Iterator<PluggableAuthenticator> iterator = sortedIterator(getAuthenticators());
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
 			Status status = pa.initiateAuthentication(manager, request);
@@ -87,7 +101,7 @@ public abstract class CompositeAuthenticator extends PluggableAuthenticator {
 	public ManageAction manage(AuthenticationManager manager,
 			AuthenticationRequest request) {
 
-		Iterator<PluggableAuthenticator> iterator = getAuthenticators();
+		Iterator<PluggableAuthenticator> iterator = sortedIterator(getAuthenticators());
 		while (iterator.hasNext()) {
 			PluggableAuthenticator pa = iterator.next();
 			ManageAction action = pa.manage(manager, request);

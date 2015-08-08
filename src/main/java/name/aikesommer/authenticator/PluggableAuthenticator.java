@@ -32,7 +32,7 @@ import name.aikesommer.authenticator.SimplePrincipal;
  * 
  * @author Aike J Sommer
  */
-public abstract class PluggableAuthenticator {
+public abstract class PluggableAuthenticator implements Comparable {
 
     /**
      * This method will be called prior to any of the actual authentication
@@ -119,6 +119,21 @@ public abstract class PluggableAuthenticator {
      */
     public abstract AuthenticationRequest.ManageAction manage(AuthenticationManager manager, AuthenticationRequest request);
 
+	/**
+	 * Used to order the Authenticators by the CompositeAuthenticator so that the most general one is the last.
+	 * Lower number means higher prio. Higher prio means it will be executed before other lower-prio authenticators.
+	 * @return 
+	 */
+	public int getPriority() {
+		return 0;
+	};
+
+	@Override
+	public int compareTo(Object o) {
+		return Integer.valueOf(getPriority()).compareTo(((PluggableAuthenticator)o).getPriority());
+	}
+	
+	
     
     /**
      * AuthenticationManager allows for access to some common actions while 

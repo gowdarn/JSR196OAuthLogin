@@ -62,4 +62,11 @@ public class NativeLogin extends FormAuthenticator {
 		return "/restricted/";
 	}
 
+	@Override
+	public int getPriority() {
+		return 9999;
+	}
+	
+	
+
 }

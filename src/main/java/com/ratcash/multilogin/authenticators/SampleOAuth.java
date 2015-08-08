@@ -38,5 +38,10 @@ public class SampleOAuth extends ResourceAuthenticator {
     protected String getLoginPage() {
         return "/api/oauth/auth";
     }
+
+	@Override
+	public int getPriority() {
+		return 10;
+	}
 	
 }
