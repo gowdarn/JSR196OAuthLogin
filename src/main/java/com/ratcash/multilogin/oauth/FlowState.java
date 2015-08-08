@@ -24,7 +24,7 @@ import javax.enterprise.context.ApplicationScoped;
  */
 @ApplicationScoped
 public class FlowState {
-	
+	// TODO: replace with Hazelcast map
 	Map<Key, FlowData> map = new ConcurrentHashMap<>();
 
 	public FlowState() {
