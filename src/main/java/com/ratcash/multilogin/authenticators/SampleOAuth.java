@@ -32,4 +32,11 @@ public class SampleOAuth extends ResourceAuthenticator {
 		return "ACME";
 	}
 	
+	/**
+     * Overwrite this to specify a different login-page.
+     */
+    protected String getLoginPage() {
+        return "/api/oauth/auth";
+    }
+	
 }

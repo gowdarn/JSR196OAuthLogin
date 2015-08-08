@@ -43,6 +43,11 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
      * @return The realm name shown at the browser popup dialog.
      */
     protected abstract String getRealmName();
+	
+	/**
+     * Overwrite this to specify a different login-page.
+     */
+    protected abstract String getLoginPage();
 
 	@Override
 	public AuthenticationRequest.Status validateAuthenticationInfo(AuthenticationManager manager, AuthenticationRequest request) {
@@ -76,9 +81,12 @@ public abstract class ResourceAuthenticator extends PluggableAuthenticator {
 		else
 			return AuthenticationRequest.Status.Failure;
 	}
-
+	
 	@Override
 	public AuthenticationRequest.Status initiateAuthentication(AuthenticationManager manager, AuthenticationRequest request) {
+//		manager.saveRequest(request);
+//        manager.forward(request, getLoginPage());
+//        return AuthenticationRequest.Status.Continue;
 		return AuthenticationRequest.Status.None;
 	}
 
