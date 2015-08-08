@@ -38,7 +38,7 @@ public class LoginForm {
 	
 	public void facebookLogin() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath()
-				+ "j_facebook_redirect");
+				+ "/j_facebook_redirect");
 	}
 	
 	public void twitterLogin() {
