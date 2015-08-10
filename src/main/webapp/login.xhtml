@@ -6,63 +6,50 @@
 				xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 	<ui:define name="title">
-		<title>Login form</title>
+		<title>Sign-in</title>
 	</ui:define>
+    
+    <ui:define name="navigationHeader">
+        
+    </ui:define>
+        
+    <ui:define name="includes">
+        <ui:include src="/WEB-INF/templates/common/cssFiles.xhtml" />
+        <h:outputStylesheet library="assets" name="/css/signin.css" /> 
+    </ui:define>
 
 	<ui:define name="content">
-		<div class="jumbotron"><h1>Login</h1>
-			<p>Please provide your credentials or use one of your social accounts to log-in</p></div>
-		<div><p>if you don't have an account yet, please click here <a href="#{request.contextPath}/register">to register yourself.</a></p></div>
+       
 		<f:event type="preRenderView" listener="#{loginForm.checkAuthentication()}" />
 
 		<f:view>
-			<div class="table-responsive">
-				<div class="col-md-6 col-xs-12">
-					<div class="page-header"><h3>Login</h3></div>
-					<p>Known usernames:</p>
-						<ul>
-							<li>user@nowhere.org to log with access to the UI</li>
-							<li>api@nowhere.org to log in with API access</li>
-						</ul>
-					<form class="form-horizontal" action="j_security_check" jsf:id="login-form" jsf:prependId="false">
-						<div class="form-group">
-							<label class="col-xs-4 control-label" jsf:for="j_username">Email: </label><div class="col-xs-8"><input type="email" jsf:id="j_username" placeholder="your.email@domain.com" class="form-control"/></div>
-							<h:message id="m4" for="j_username" class="form-control-message"/>
-							
-						</div>
-						<div class="form-group">
-							<label class="col-xs-4 control-label" jsf:for="j_password">Password: </label><div class="col-xs-8"><input type="password" jsf:id="j_password" placeholder="password" class="form-control"/></div>
-							<h:message id="m5" for="j_password" class="form-control-message"/>
-						</div> 
-						<div class="form-group">
-							<div class="col-xs-offset-4 col-xs-4">
-								<button type="submit" class="btn btn-success">Login</button>
-							</div>
-						</div>
-					</form>
-				</div>
+            <form class="form-signin" action="j_security_check" jsf:id="login-form" jsf:prependId="false">
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <p>Don't have an account yet? <a href="#{request.contextPath}/register.xhtml">Register</a></p>
+                <p class="text-muted">Hint: Use the following usernames:</p>
+                <ul class="text-muted">
+                    <li>for UI access: user@nowhere.org</li>
+                    <li>for API access: api@nowhere.org</li>
+                </ul>
+                <label class="sr-only" jsf:for="j_username">Email address</label><input type="email" jsf:id="j_username" placeholder="your.email@domain.com" class="form-control" required="" autofocus=""/>
+                <h:message id="m4" for="j_username" class="form-control-message"/>
+                <label class="sr-only" jsf:for="j_password">Password</label><input type="password" jsf:id="j_password" placeholder="password" class="form-control"/>
+                <h:message id="m5" for="j_password" class="form-control-message"/>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
 
-				<div class="col-md-6 col-xs-12">
-					<div class="page-header"><h3>Social Sign-in</h3></div>
-					<form class="form-horizontal" jsf:id="social-login-form">
-						<div class="form-group">
-							<label class="col-xs-4 control-label" jsf:id="social-label">Social sign-in using: </label>
-							<div class="col-xs-8">
-								<button type="submit" value="facebook" jsf:action="#{loginForm.facebookLogin}" class="btn btn-success">Facebook</button>
-								<button type="submit" value="google+" jsf:action="#{loginForm.googleLogin}" class="btn btn-danger">Google +</button>
-								<button type="submit" value="twitter" jsf:action="#{loginForm.twitterLogin}" class="btn btn-success">Twitter</button>
-								<button type="submit" value="linked-in" jsf:action="#{loginForm.linkedinLogin}" class="btn btn-primary">Linked-in</button>
-							</div>
-						</div> 
-					</form>
-				</div>
-			</div>
+                <p></p>
+                <p>Alternatively, pick your preferred social login provider: </p>
+                <button type="submit" value="facebook" jsf:action="#{loginForm.facebookLogin}" class="btn btn-success">Facebook</button>
+                <button type="submit" value="google+" jsf:action="#{loginForm.googleLogin}" class="btn btn-danger">Google +</button>
+                <button type="submit" value="twitter" jsf:action="#{loginForm.twitterLogin}" class="btn btn-success">Twitter</button>
+                <button type="submit" value="linked-in" jsf:action="#{loginForm.linkedinLogin}" class="btn btn-primary">Linked-in</button>
+            </form>
 
 		</f:view>
 	</ui:define>
 
 	<ui:define name="footer">
-		<ui:include src="/WEB-INF/templates/common/commonFooter.xhtml" />
+		
 	</ui:define>
 
 </ui:composition>
