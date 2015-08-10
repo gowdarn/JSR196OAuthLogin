@@ -20,7 +20,6 @@
 package com.ratcash.multilogin.oauth;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,7 +33,7 @@ public class FlowData implements Serializable {
 	private static final long serialVersionUID = -2351411168875412652L;
 	
 	String code;
-	URI redirectUri;
+	String redirectUri;
 	String clientId;
 	@XmlElement(name = "access_token")
 	String token;
@@ -44,7 +43,7 @@ public class FlowData implements Serializable {
 	public FlowData() {
 	}
 
-	public FlowData(String code, URI redirectUri, String clientId, String token, String scope) {
+	public FlowData(String code, String redirectUri, String clientId, String token, String scope) {
 		this.code = code;
 		this.redirectUri = redirectUri;
 		this.clientId = clientId;
@@ -61,11 +60,11 @@ public class FlowData implements Serializable {
 		this.code = code;
 	}
 
-	public URI getRedirectUri() {
+	public String getRedirectUri() {
 		return redirectUri;
 	}
 
-	public void setRedirectUri(URI redirectUri) {
+	public void setRedirectUri(String redirectUri) {
 		this.redirectUri = redirectUri;
 	}
 

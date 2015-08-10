@@ -53,10 +53,11 @@ public class OAuthProvider {
 	Principal principal;
 	
 	
+    // TODO: Convert this to a JSF Approval page and a corresponding backing bean
 	@Path("auth")
 	@GET
 	public Response auth(@QueryParam("response_type") String responseType,
-			@QueryParam("client_id")String clientId, @QueryParam("redirect_uri") URI redirectUri, @QueryParam("scope")String scope) {
+			@QueryParam("client_id")String clientId, @QueryParam("redirect_uri") String redirectUri, @QueryParam("scope")String scope) {
 		
 		if("code".equalsIgnoreCase(responseType)) {
 			String code = UUID.randomUUID().toString();
@@ -97,7 +98,7 @@ public class OAuthProvider {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public FlowData provideToken(@QueryParam("grant_type") OAuthConstants.GRANT_TYPE grantType,
-			@QueryParam("code") String code, @QueryParam("redirect_uri") URI redirectUri, 
+			@QueryParam("code") String code, @QueryParam("redirect_uri") String redirectUri, 
 			@QueryParam("client_id") String clientId, @QueryParam("client_secret") String clientSecret,
 			@QueryParam("username") String username, @QueryParam("password") String password
 			) {
