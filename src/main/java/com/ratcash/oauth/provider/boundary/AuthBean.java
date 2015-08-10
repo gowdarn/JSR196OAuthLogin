@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.auth.boundary;
+package com.ratcash.oauth.provider.boundary;
 
-import com.ratcash.multilogin.oauth.FlowData;
-import com.ratcash.multilogin.oauth.FlowState;
+import com.ratcash.oauth.provider.entity.FlowData;
+import com.ratcash.oauth.provider.ctrl.FlowState;
 import java.io.IOException;
 import java.net.URI;
 import java.util.UUID;

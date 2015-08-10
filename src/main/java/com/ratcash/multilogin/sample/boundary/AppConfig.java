@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.boundary.services;
+package com.ratcash.multilogin.sample.boundary;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.authenticators;
+package com.ratcash.multilogin.sample.auth.ctrl;
 
-import com.ratcash.multilogin.oauth.ResourceAuthenticator;
+import com.ratcash.oauth.resourceserver.ResourceAuthenticator;
 import javax.enterprise.context.ApplicationScoped;
 import name.aikesommer.authenticator.AuthenticationRequest;
 import name.aikesommer.authenticator.SimplePrincipal;

@@ -17,21 +17,27 @@
  *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *    Boston, MA 02110-1301 USA
  */
-package com.ratcash.multilogin.oauth;
+package com.ratcash.oauth.provider.entity;
 
-public class OAuthException extends Exception {
-	private static final long serialVersionUID = -7960227033852054555L;
+import java.io.Serializable;
+import java.time.Instant;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-	public OAuthException(String message) {
-		super(message);
-	}
-
-	public OAuthException(Throwable cause) {
-		super(cause);
-	}
-
-	public OAuthException(String message, Throwable cause) {
-		super(message, cause);
-	}
+@Entity
+public class ActiveToken implements Serializable {
+	private static final long serialVersionUID = -3419874600630460160L;
 	
+	@Id
+	@GeneratedValue()
+	public Long id;
+	
+	public String clientId;
+	public String userId;
+	public String token;
+	public Instant expires;
+	public String allowedDomain;
+	public Boolean blacklisted;
+	public Instant cooldownSince;
 }

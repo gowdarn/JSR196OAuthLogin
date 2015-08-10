@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.auth.boundary;
+package com.ratcash.multilogin.sample.boundary;
 
-import com.ratcash.multilogin.authenticators.FacebookAuthenticator;
+import com.ratcash.multilogin.sample.auth.ctrl.FacebookAuthenticator;
 import java.io.IOException;
 import javax.enterprise.inject.Model;
 import javax.faces.context.ExternalContext;

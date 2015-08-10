@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.authenticators;
+package com.ratcash.multilogin.sample.auth.ctrl;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

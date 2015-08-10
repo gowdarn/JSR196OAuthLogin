@@ -1,4 +1,4 @@
-package com.ratcash.multilogin.authenticators;
+package com.ratcash.multilogin.sample.auth.ctrl;
 
 /* 
  * Password Hashing With PBKDF2 (http://crackstation.net/hashing-security.htm).

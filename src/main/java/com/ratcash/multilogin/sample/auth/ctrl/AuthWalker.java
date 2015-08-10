@@ -17,26 +17,31 @@
  *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *    Boston, MA 02110-1301 USA
  */
-package com.ratcash.multilogin.oauth.entity;
+package com.ratcash.multilogin.sample.auth.ctrl;
 
-import java.io.Serializable;
-import java.time.Instant;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.util.Iterator;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import name.aikesommer.authenticator.PluggableAuthenticator;
+import name.aikesommer.authenticator.modules.CompositeAuthenticator;
 
-@Entity
-public class OAuthClient implements Serializable {
-	private static final long serialVersionUID = 773727838498124460L;
-	
-	@Id
-	@GeneratedValue
-	public Long id;
-	
-	public String clientId;
-	public String uriWhitelist;
-	public Instant created;
-	public Instant updated;
-	public Boolean blacklisted;
-	public Instant cooldownSince;
+/**
+ *
+ * @author rex
+ */
+@ApplicationScoped
+@Primary
+public class AuthWalker extends CompositeAuthenticator {
+
+	@Inject
+	@Default
+	Instance<PluggableAuthenticator> authenticators;
+
+	@Override
+	protected Iterator<PluggableAuthenticator> getAuthenticators() {
+		return authenticators.iterator();
+	}
 }

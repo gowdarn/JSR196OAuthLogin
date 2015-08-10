@@ -17,8 +17,10 @@
  *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *    Boston, MA 02110-1301 USA
  */
-package com.ratcash.multilogin.oauth;
+package com.ratcash.oauth.resourceserver;
 
+import com.ratcash.oauth.provider.ctrl.OAuthConstants;
+import com.ratcash.oauth.provider.ctrl.OAuthException;
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

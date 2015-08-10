@@ -11,8 +11,9 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 51
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
-package com.ratcash.multilogin.oauth;
+package com.ratcash.oauth.provider.ctrl;
 
+import com.ratcash.oauth.provider.entity.FlowData;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;

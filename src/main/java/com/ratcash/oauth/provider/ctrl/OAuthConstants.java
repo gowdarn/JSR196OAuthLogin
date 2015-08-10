@@ -17,7 +17,7 @@
  *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *    Boston, MA 02110-1301 USA
  */
-package com.ratcash.multilogin.oauth;
+package com.ratcash.oauth.provider.ctrl;
 
 public class OAuthConstants {
 	public static final String OAUTH_RESPONSE_TYPE = "response_type";

@@ -17,31 +17,21 @@
  *    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *    Boston, MA 02110-1301 USA
  */
-package com.ratcash.multilogin.authenticators;
+package com.ratcash.oauth.provider.ctrl;
 
-import java.util.Iterator;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import name.aikesommer.authenticator.PluggableAuthenticator;
-import name.aikesommer.authenticator.modules.CompositeAuthenticator;
+public class OAuthException extends Exception {
+	private static final long serialVersionUID = -7960227033852054555L;
 
-/**
- *
- * @author rex
- */
-@ApplicationScoped
-@Primary
-public class AuthWalker extends CompositeAuthenticator {
-
-	@Inject
-	@Default
-	Instance<PluggableAuthenticator> authenticators;
-
-	@Override
-	protected Iterator<PluggableAuthenticator> getAuthenticators() {
-		return authenticators.iterator();
+	public OAuthException(String message) {
+		super(message);
 	}
+
+	public OAuthException(Throwable cause) {
+		super(cause);
+	}
+
+	public OAuthException(String message, Throwable cause) {
+		super(message, cause);
+	}
+	
 }

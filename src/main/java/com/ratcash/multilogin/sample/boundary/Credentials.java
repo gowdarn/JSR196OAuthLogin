@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ratcash.multilogin.auth.boundary;
+package com.ratcash.multilogin.sample.boundary;
 
 import javax.enterprise.inject.Model;
 import javax.validation.constraints.NotNull;
