@@ -47,14 +47,14 @@ public class NativeLogin extends FormAuthenticator {
 
 	@Override
 	protected String getLoginPage() {
-		System.out.println("Native Login sending to 'Login.xhtml'");
-		return "/login.xhtml";
+		System.out.println("Native Login sending to 'signin.xhtml'");
+		return "/signin.xhtml";
 	}
 
 	@Override
 	protected String getErrorPage() {
-		System.out.println("Native Login sending to error page: 'Login.xhtml'");
-		return "/login.xhtml";
+		System.out.println("Native Login sending to error page: 'signin.xhtml'");
+		return "/signin.xhtml";
 	}
 
 	@Override

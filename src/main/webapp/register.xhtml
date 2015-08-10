@@ -14,7 +14,7 @@
 	<ui:define name="content">
 		<div class="jumbotron"><h1>Registration</h1>
 			<p>Please provide your email and select your password. Alternatively, use one of your social accounts to sign-in</p></div>
-		<div><p>if you wan't to log-in instead, please head over to the <a href="#{request.contextPath}/login">login page.</a></p></div>
+		<div><p>if you wan't to log-in instead, please head over to the <a href="#{request.contextPath}/signin.xhtml">login page.</a></p></div>
 		<f:event type="preRenderView" listener="#{loginForm.checkAuthentication()}" />
 
 		<f:view>
