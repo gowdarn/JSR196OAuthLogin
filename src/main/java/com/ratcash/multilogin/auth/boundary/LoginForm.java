@@ -5,6 +5,7 @@
  */
 package com.ratcash.multilogin.auth.boundary;
 
+import com.ratcash.multilogin.authenticators.FacebookAuthenticator;
 import java.io.IOException;
 import javax.enterprise.inject.Model;
 import javax.faces.context.ExternalContext;
@@ -38,7 +39,7 @@ public class LoginForm {
 	
 	public void facebookLogin() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath()
-				+ "/j_facebook_redirect");
+				+ FacebookAuthenticator.LOGIN_ACTION);
 	}
 	
 	public void twitterLogin() {

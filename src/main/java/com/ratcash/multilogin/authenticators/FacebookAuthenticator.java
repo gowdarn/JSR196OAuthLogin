@@ -30,7 +30,7 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
 
     private static final String PRINCIPAL_NOTE = PluggableAuthenticator.class.getName() + ".PRINCIPAL";
     public static final String LOGIN_ACTION = "/j_facebook_login";
-    public static final String REDIRECT_ACTION = "/j_facebook_redirect";
+    public static final String CALLBACK_ACTION = "/j_facebook_callback";
     public static final String CODE = "code";
     OAuthService service = null;
 	
@@ -51,7 +51,7 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
     }
 
     protected String getRegisterPage() {
-        return "/register.xhtml";
+        return "/register.xhtml?social=facebook";
     }
 
     protected String getRedirectPage(String url) throws UnsupportedEncodingException {
@@ -83,8 +83,8 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
         }
 
         String requestURI = request.getRequestPath();
-        boolean loginAction = requestURI.endsWith(LOGIN_ACTION);
-        if (loginAction) {
+        boolean callbackAction = requestURI.endsWith(CALLBACK_ACTION);
+        if (callbackAction) {
 
             String facebookId = checkCredentials(manager, request);
             if (facebookId != null) {
@@ -102,12 +102,12 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
                 return AuthenticationRequest.Status.Continue;
             }
 
-            manager.forward(request, getRegisterPage() + "?facebook=facebook");
+            manager.forward(request, getRegisterPage());
             return AuthenticationRequest.Status.Continue;
         } else {
-            boolean redirectAction = requestURI.endsWith(REDIRECT_ACTION);
-            if (redirectAction) {
-                redirect(manager, request);
+            boolean loginAction = requestURI.endsWith(LOGIN_ACTION);
+            if (loginAction) {
+                redirectToFacebook(manager, request);
                 return AuthenticationRequest.Status.Continue;
             }
         }
@@ -127,13 +127,13 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
         return AuthenticationRequest.ManageAction.None;
     }
 
-    public void redirect(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
+    public void redirectToFacebook(PluggableAuthenticator.AuthenticationManager manager, AuthenticationRequest request) {
         try {
             service = new ServiceBuilder()
                     .provider(FacebookApi.class)
                     .apiKey(FACEBOOK_APPID_DEFAULT)
                     .apiSecret(FACEBOOK_APP_SECRET_DEFAULT)
-					.callback("http://localhost:8080/oauth/#j_facebook_login")
+					.callback("http://localhost:8080/oauth" + CALLBACK_ACTION)
                     .debug()
                     .build();
 
@@ -181,7 +181,7 @@ public class FacebookAuthenticator extends PluggableAuthenticator {
 
     protected SimplePrincipal loadPrincipal(AuthenticationManager manager, AuthenticationRequest request, String facebookId) {
 //        Profile p = DAOFactory.getProfileDAO().findByFacebookId(facebookId);
-		String username="facebook", role="users";
+		String username="facebook", role="user";
         return new SimplePrincipal(username, role);
     }
 }
