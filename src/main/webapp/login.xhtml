@@ -23,7 +23,7 @@
 		<f:event type="preRenderView" listener="#{loginForm.checkAuthentication()}" />
 
 		<f:view>
-            <form class="form-signin" action="j_security_check" jsf:id="login-form" jsf:prependId="false">
+            <form class="form-signin" action="j_security_check" jsf:id="native-signin-form" jsf:prependId="false">
                 <h2 class="form-signin-heading">Please sign in</h2>
                 <p>Don't have an account yet? <a href="#{request.contextPath}/register.xhtml">Register</a></p>
                 <p class="text-muted">Hint: Use the following usernames:</p>
@@ -36,9 +36,10 @@
                 <label class="sr-only" jsf:for="j_password">Password</label><input type="password" jsf:id="j_password" placeholder="password" class="form-control"/>
                 <h:message id="m5" for="j_password" class="form-control-message"/>
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
-
+            </form>
+            <form class="form-signin" jsf:prependId="false" jsf:id="social-signin-form">
                 <p></p>
-                <p>Alternatively, pick your preferred social login provider: </p>
+                <p>Alternatively, pick your preferred social login provider:</p>
                 <button type="submit" value="facebook" jsf:action="#{loginForm.facebookLogin}" class="btn btn-success">Facebook</button>
                 <button type="submit" value="google+" jsf:action="#{loginForm.googleLogin}" class="btn btn-danger">Google +</button>
                 <button type="submit" value="twitter" jsf:action="#{loginForm.twitterLogin}" class="btn btn-success">Twitter</button>
