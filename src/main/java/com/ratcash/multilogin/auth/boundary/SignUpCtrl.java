@@ -41,4 +41,20 @@ public class SignUpCtrl {
 		UIComponent comp = context.getViewRoot().findComponent("registration-form");
 		context.addMessage(comp.getClientId(context), msg);
 	}
+    
+    public void useFacebook() {
+		
+	}
+     
+    public void useTwitter() {
+		
+	}
+	
+	public void useGooglePlus() {
+		
+	}
+	
+	public void useLinkedIn() {
+		
+	}
 }

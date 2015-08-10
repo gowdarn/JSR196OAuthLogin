@@ -9,75 +9,64 @@
 	<ui:define name="title">
 		<title>Registration</title>
 	</ui:define>
+    
+    <ui:define name="navigationHeader">
+        
+    </ui:define>
+    
+    <ui:define name="includes">
+        <ui:include src="/WEB-INF/templates/common/cssFiles.xhtml" />
+        <h:outputStylesheet library="assets" name="/css/signin.css" /> 
+    </ui:define>
 
 
 	<ui:define name="content">
-		<div class="jumbotron"><h1>Registration</h1>
-			<p>Please provide your email and select your password. Alternatively, use one of your social accounts to sign-in</p></div>
-		<div><p>if you wan't to log-in instead, please head over to the <a href="#{request.contextPath}/signin.xhtml">login page.</a></p></div>
 		<f:event type="preRenderView" listener="#{loginForm.checkAuthentication()}" />
 
 		<f:view>
+            <form class="form-signin" action="j_security_check" jsf:id="native-registration-form">
+                <h2 class="form-signin-heading">Registration</h2>
+                <p>Already registered? <a href="#{request.contextPath}/signin.xhtml">Sign in...</a></p>
+                
+                <label class="sr-only" jsf:for="firstName">First Name: </label>
+                <input type="text" jsf:id="firstName" jsf:value="#{credentials.firstName}" class="form-control" 
+                       placeholder="First name" required="true" autofocus=""/>
+				<h:message id="m1" for="firstName" class="form-control-message"/>
+                
+                <label class="sr-only" jsf:for="lastName">Last Name: </label>
+                <input type="text" jsf:id="lastName" jsf:value="#{credentials.lastName}" class="form-control" 
+                       placeholder="Last name" required="true"/>
+				<h:message id="m2" for="lastName" class="form-control-message"/>
+                
+                <label class="sr-only" jsf:for="email">Email address</label>
+                <input type="email" jsf:id="email" jsf:value="#{credentials.email}" placeholder="your.email@domain.com" class="form-control" required="true"/>
+                <h:message id="m3" for="email" class="form-control-message"/>
+                
+                <label class="sr-only" jsf:for="password">Password</label>
+                <input type="password" jsf:id="password" jsf:value="#{credentials.pw}" placeholder="password" class="form-control" 
+                        required="true" pattern=".{6,20}" maxlength="20" title="6 characters minimum"/>
+                <h:message id="m4" for="password" class="form-control-message"/>
+                
+                <button type="submit" jsf:action="#{signUpCtrl.register(credentials)}" class="btn btn-lg btn-primary btn-block">Register</button>
+            </form>
+            <form class="form-signin" jsf:id="social-registration-form">
+                <p></p>
+                <p>Alternatively, register using your preferred social login provider: </p>
+                <button type="submit" value="facebook" jsf:action="#{signUpCtrl.useFacebook()}" class="btn btn-success">Facebook</button>
+                <button type="submit" value="google+" jsf:action="#{signUpCtrl.useGooglePlus()}" class="btn btn-danger">Google +</button>
+                <button type="submit" value="twitter" jsf:action="#{signUpCtrl.useTwitter()}" class="btn btn-success">Twitter</button>
+                <button type="submit" value="linked-in" jsf:action="#{signUpCtrl.useLinkedIn()}" class="btn btn-primary">Linked-in</button>
+            </form>
+            
 			<div jsf:rendered="${registration.registrationSuccessful}" class="success">
 				<h4>Registration was successful.</h4>
 			</div>
-			<div class="col-md-6 col-xs-12">
-				<div class="page-header"><h3>Register</h3></div>
-				<form class="form-horizontal" jsf:id="registration-form">
-					<div class="form-group">
-						<label class="col-xs-4 control-label" jsf:for="firstName">First Name: </label><div class="col-xs-8">
-							<input type="text" jsf:id="firstName" jsf:value="#{credentials.firstName}" class="form-control" 
-								   required="true"/></div>
-						<h:message id="m1" for="firstName" class="form-control-message"/>
-					</div>
-					<div class="form-group">
-						<label class="col-xs-4 control-label" jsf:for="lastName">Last Name: </label><div class="col-xs-8">
-							<input type="text" jsf:id="lastName" jsf:value="#{credentials.lastName}" class="form-control" 
-								   required="true"/></div>
-						<h:message id="m2" for="lastName" class="form-control-message"/>
-					</div>
-					<div class="form-group">
-						<label class="col-xs-4 control-label" jsf:for="email">Email: </label><div class="col-xs-8">
-							<input type="email" jsf:id="email" jsf:value="#{credentials.email}" placeholder="your.email@domain.com" class="form-control" 
-								   required="true"/></div>
-						<h:message id="m3" for="email" class="form-control-message"/>
-					</div>
-					<div class="form-group">
-						<label class="col-xs-4 control-label" jsf:for="password">Password: </label><div class="col-xs-8">
-							<input type="password" jsf:id="password" jsf:value="#{credentials.pw}" placeholder="password" class="form-control" 
-								   required="true" pattern=".{6,20}" maxlength="20" title="6 characters minimum"/>
-						</div>
-						<h:message id="m4" for="password" class="form-control-message"/>
-						
-					</div>
-					
-					<div class="form-group">
-						<div class="col-xs-offset-4 col-xs-8">
-							<button type="submit" jsf:action="#{signUpCtrl.register(credentials)}" class="btn btn-success">Register</button>
-						</div>
-					</div>
-				</form>
-			</div>
-
-			<div class="col-md-6 col-xs-12">
-				<div class="page-header"><h3>Register using a social network</h3></div>
-				<form class="form-horizontal" jsf:id="social-login-form">
-					<div class="form-group">
-						<label class="col-xs-4 control-label" jsf:id="social-label">Social sign-in using: </label>
-						<div class="col-xs-8">
-							<button type="submit" value="facebook" jsf:action="#{loginForm.facebookLogin}" class="btn btn-success">Facebook</button>
-							<button type="submit" value="google+" jsf:action="#{loginForm.googleLogin}" class="btn btn-danger">Google +</button>
-							<button type="submit" value="twitter" jsf:action="#{loginForm.twitterLogin}" class="btn btn-success">Twitter</button>
-							<button type="submit" value="linked-in" jsf:action="#{loginForm.linkedinLogin}" class="btn btn-primary">Linked-in</button>
-						</div>
-					</div> 
-				</form>
-			</div>
+            
 		</f:view>
 	</ui:define>
 
 	<ui:define name="footer">
-		<p class="text-muted">This is the page footer</p>
+		
 	</ui:define>
 
 </ui:composition>
