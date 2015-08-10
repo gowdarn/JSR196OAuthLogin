@@ -18,28 +18,28 @@
 		</ui:insert>
     </h:head>
 
-    <h:body role="document">
+    <h:body role="document" style="padding-top: 50px;">
 
-		<div id="header">
-			<ui:insert name="header" >
-				<ui:include src="/WEB-INF/templates/common/commonHeader.xhtml" />
-			</ui:insert>
-		</div>
-		
-		<ui:insert name="bottom" >
-			<ui:include src="/WEB-INF/templates/common/jsFiles.xhtml" />
-		</ui:insert>
+        <ui:insert name="header" >
+            <ui:include src="/WEB-INF/templates/common/commonHeader.xhtml" />
+        </ui:insert>
+        
+        <div class="container">
+            <ui:insert name="bottom" >
+                <ui:include src="/WEB-INF/templates/common/jsFiles.xhtml" />
+            </ui:insert>
 
-		<div id="content" class="container" role="main">
-			<ui:insert name="content" >
-				<ui:include src="/WEB-INF/templates/common/commonContent.xhtml" />
-			</ui:insert>
-		</div>
+            <div id="content" role="main">
+                <ui:insert name="content" >
+                    <ui:include src="/WEB-INF/templates/common/commonContent.xhtml" />
+                </ui:insert>
+            </div>
 
-		<div id="footer" class="container">
-			<ui:insert name="footer" >
-				<ui:include src="/WEB-INF/templates/common/commonFooter.xhtml" />
-			</ui:insert>
-		</div>
+            <div id="footer" >
+                <ui:insert name="footer" >
+                    <ui:include src="/WEB-INF/templates/common/commonFooter.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
     </h:body>
 </html>
