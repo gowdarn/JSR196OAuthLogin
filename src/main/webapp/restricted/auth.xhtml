@@ -1,0 +1,56 @@
+<ui:composition template="/WEB-INF/templates/common/commonLayout.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml"   
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+				>
+	<ui:define name="title">
+		<title>OAuth2 Approval</title>
+	</ui:define>
+
+    <f:metadata>
+        <ui:remove><!--
+            TODO use OmniFaces to be able to use constants 
+        
+            <o:importConstants type="com.ratcash.multilogin.oauth.OAuthConstants" />
+            <h:someComponent ... rendered="#{responseType == OAuthConstants.GRANT_TYPE.SOMETHING}" />
+        -->
+        </ui:remove>
+        
+        <f:viewParam name="client_id" value="#{authBean.clientId}" required="true"/>
+        <f:viewParam name="redirect_uri" value="#{authBean.redirectUri}" required="true"/>
+        <f:viewParam name="response_type" value="#{authBean.responseType}" required="true"/>
+        <f:viewParam name="scope" value="#{authBean.scope}"/>
+    </f:metadata>
+    
+	<ui:define name="content">
+        <f:event type="preRenderView" listener="#{authBean.checkParams()}" />
+        <f:view>
+            <div class="jumbotron" style="max-width: 730px; margin-top: 40px; margin-left: auto; margin-right: auto;">
+                <h1 class="text-center">Approval Required</h1>
+                <p class="text-center">The app "#{authBean.appName}" by "#{authBean.developer}" would like the ability to access 
+                    this application on behalf of You [#{principalHolder.principal.name}].</p>
+                <p class="text-center">Allow #{authBean.appName} access?</p>
+
+                <form class="form-inline " jsf:id="consent-form">
+                        <div class="form-group">
+                            <button type="submit" style="width:120px;" class="btn btn-success btn-lg" jsf:action="#{authBean.allow()}">Allow</button>
+                        </div>
+                        <div class="form-group pull-right">
+                            <button type="submit" style="width:120px;" class="btn btn-danger btn-lg" jsf:action="#{authBean.reject()}">Reject</button>
+                        </div>
+                </form>
+
+
+            </div>
+        </f:view>
+		
+	</ui:define>
+
+	<ui:define name="footer">
+		<ui:include src="/WEB-INF/templates/common/commonFooter.xhtml" />
+	</ui:define>
+
+</ui:composition>

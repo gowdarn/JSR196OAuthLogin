@@ -22,7 +22,6 @@ package com.ratcash.multilogin.boundary.services;
 import com.ratcash.multilogin.oauth.FlowData;
 import com.ratcash.multilogin.oauth.FlowState;
 import com.ratcash.multilogin.oauth.OAuthConstants;
-import java.net.URI;
 import java.security.Principal;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
@@ -32,11 +31,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 
 /**
  * Inspired by http://aaronparecki.com/articles/2012/07/29/1/oauth2-simplified
@@ -51,31 +47,8 @@ public class OAuthProvider {
 	
 	@Context
 	Principal principal;
-	
-	
-    // TODO: Convert this to a JSF Approval page and a corresponding backing bean
-	@Path("auth")
-	@GET
-	public Response auth(@QueryParam("response_type") String responseType,
-			@QueryParam("client_id")String clientId, @QueryParam("redirect_uri") String redirectUri, @QueryParam("scope")String scope) {
-		
-		if("code".equalsIgnoreCase(responseType)) {
-			String code = UUID.randomUUID().toString();
-			String token = issueToken(clientId, "rex"); //principal.getName());   // needs to be written somewhere (DB)
-			FlowData fd = new FlowData(code, redirectUri, clientId, token, scope);
-			flowState.addFlowData(fd);
-			// do some checks
-			URI uri = UriBuilder.fromUri(redirectUri).queryParam("code", fd.getCode()).build((Object) null);
-			// return a viewable (Login-page) and grant page
-			return Response.seeOther(uri).build();
-		} else if ("token".equalsIgnoreCase(responseType)) {
-			String token = UUID.randomUUID().toString();
-			URI uri = UriBuilder.fromUri(redirectUri).queryParam("token", token).build((Object) null);
-			return Response.seeOther(uri).build();
-		}
-		throw new WebApplicationException("bad request", Response.Status.BAD_REQUEST);
-	}
-
+    
+    // See the /auth endpoint in auth.xhtml JSF page and the corresponding backing bean
 	
 
 	//	POST https://api.oauth2server.com/token
