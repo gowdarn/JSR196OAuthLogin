@@ -1,0 +1,46 @@
+<ui:composition template="/WEB-INF/templates/common/commonLayout.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml"   
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+	<ui:define name="title">
+		<title>Introduction</title>
+	</ui:define>
+    
+
+	<ui:define name="content">
+		<div class="jumbotron"><h1>JSR196 Multilogin Study</h1>
+			<p>This project aims to implement a reusable implementation of a JSR196 authenticators</p></div>
+
+		<f:view>
+			<div class="table-responsive">
+                <div class="col-md-12 col-xs-12">
+					<div class="page-header"><h3>Introduction</h3></div>
+                    <p>This project implements native and social (Twitter, Google+, Facebook and others) login, as well 
+                        as an OAuth provider using JSR196 as much as possible. In certain cases JSF is also used, for
+                    example to show the OAuth consent screen, the Login page and the Registration page. You're free to
+                    customize these pages as you see fit.</p>
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class="col-xs-12 " >Try clicking on any of the following </label>
+							<div class="col-xs-12">
+                                <a href="#{request.contextPath}/login.xhtml"><button type="button" class="col-xs-3 btn btn-success">Login</button></a>
+                                <a href="#{request.contextPath}/register.xhtml"><button type="button" class="col-xs-offset-1 col-xs-3 btn btn-danger">Register</button></a>
+                                <a href="#{request.contextPath}/restricted/auth.xhtml?client_id=123&amp;response_type=code&amp;scope=profile&amp;redirect_uri=http://www.ratcash.net">
+                                    <button type="button" class="col-xs-offset-1 col-xs-4 btn btn-primary">OAuth2 Auth Provider</button></a>
+							</div>
+						</div> 
+					</form>
+				</div>
+			</div>
+
+		</f:view>
+	</ui:define>
+
+	<ui:define name="footer">
+		<ui:include src="/WEB-INF/templates/common/commonFooter.xhtml" />
+	</ui:define>
+
+</ui:composition>
