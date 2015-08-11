@@ -58,6 +58,15 @@ public class SimplePrincipal implements Principal, Serializable {
         }
     }
     
+    public SimplePrincipal(String name, Object account, String ... groups) {
+        this.name = name;
+        for (int i = 0; i < groups.length; i++) {
+            String group = groups[i];
+            this.groups.add(group);
+        }
+        userAccount = account;
+    }
+    
     public String getName() {
         return name;
     }
