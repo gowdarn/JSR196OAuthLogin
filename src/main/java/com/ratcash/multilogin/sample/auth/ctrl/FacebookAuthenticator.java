@@ -5,8 +5,8 @@
  */
 package com.ratcash.multilogin.sample.auth.ctrl;
 
-import name.aikesommer.authenticator.modules.SocialAuthenticator;
-import name.aikesommer.authenticator.modules.SocialUserData;
+import com.ratcash.authenticator.SocialAuthenticator;
+import com.ratcash.authenticator.SocialUserData;
 import java.io.StringReader;
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;

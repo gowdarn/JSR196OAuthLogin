@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package name.aikesommer.authenticator.modules;
+package com.ratcash.authenticator;
 
 import com.ratcash.multilogin.sample.auth.ctrl.FacebookAuthenticator;
 import java.io.UnsupportedEncodingException;
