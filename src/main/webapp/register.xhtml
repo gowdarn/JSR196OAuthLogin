@@ -24,7 +24,7 @@
 		<f:event type="preRenderView" listener="#{loginForm.checkAuthentication()}" />
 
 		<f:view>
-            <form class="form-signin" action="j_security_check" jsf:id="native-registration-form">
+            <form class="form-signin" jsf:id="native-registration-form">
                 <h2 class="form-signin-heading">Registration</h2>
                 <p>Already registered? <a href="#{request.contextPath}/signin.xhtml">Sign in...</a></p>
                 
@@ -49,13 +49,13 @@
                 
                 <button type="submit" jsf:action="#{signUpCtrl.register(credentials)}" class="btn btn-lg btn-primary btn-block">Register</button>
             </form>
-            <form class="form-signin" jsf:id="social-registration-form">
+            <legend class="text-muted text-center">or</legend>
+            <form class="form-signin text-center" jsf:id="social-registration-form">
                 <p></p>
-                <p>Alternatively, register using your preferred social login provider: </p>
-                <button type="submit" value="facebook" jsf:action="#{signUpCtrl.useFacebook()}" class="btn btn-success">Facebook</button>
-                <button type="submit" value="google+" jsf:action="#{signUpCtrl.useGooglePlus()}" class="btn btn-danger">Google +</button>
-                <button type="submit" value="twitter" jsf:action="#{signUpCtrl.useTwitter()}" class="btn btn-success">Twitter</button>
-                <button type="submit" value="linked-in" jsf:action="#{signUpCtrl.useLinkedIn()}" class="btn btn-primary">Linked-in</button>
+                <a class="btn btn-lg btn-social-icon btn-facebook" jsf:action="#{signUpCtrl.useFacebook()}"><span class="fa fa-facebook"></span></a>
+                <a class="btn btn-lg btn-social-icon btn-twitter" jsf:action="#{signUpCtrl.useTwitter()}"><span class="fa fa-twitter"></span></a>
+                <a class="btn btn-lg btn-social-icon btn-google" jsf:action="#{signUpCtrl.useGooglePlus()}"><span class="fa fa-google"></span></a>
+                <a class="btn btn-lg btn-social-icon btn-linkedin" jsf:action="#{signUpCtrl.useLinkedIn()}"><span class="fa fa-linkedin"></span></a>
             </form>
             
 			<div jsf:rendered="${registration.registrationSuccessful}" class="success">

@@ -37,13 +37,12 @@
                 <h:message id="m5" for="j_password" class="form-control-message"/>
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
             </form>
-            <form class="form-signin" jsf:prependId="false" jsf:id="social-signin-form">
-                <p></p>
-                <p>Alternatively, pick your preferred social login provider:</p>
-                <button type="submit" value="facebook" jsf:action="#{loginForm.facebookLogin}" class="btn btn-success">Facebook</button>
-                <button type="submit" value="google+" jsf:action="#{loginForm.googleLogin}" class="btn btn-danger">Google +</button>
-                <button type="submit" value="twitter" jsf:action="#{loginForm.twitterLogin}" class="btn btn-success">Twitter</button>
-                <button type="submit" value="linked-in" jsf:action="#{loginForm.linkedinLogin}" class="btn btn-primary">Linked-in</button>
+            <legend class="text-muted text-center">or</legend>
+            <form class="form-signin text-center" jsf:prependId="false" jsf:id="social-signin-form">
+                <a class="btn btn-lg btn-social-icon btn-facebook" jsf:action="#{loginForm.facebookLogin()}"><span class="fa fa-facebook"></span></a>
+                <a class="btn btn-lg btn-social-icon btn-twitter" jsf:action="#{loginForm.twitterLogin()}"><span class="fa fa-twitter"></span></a>
+                <a class="btn btn-lg btn-social-icon btn-google" jsf:action="#{loginForm.googleLogin()}"><span class="fa fa-google"></span></a>
+                <a class="btn btn-lg btn-social-icon btn-linkedin" jsf:action="#{loginForm.linkedinLogin()}"><span class="fa fa-linkedin"></span></a>
             </form>
 
 		</f:view>
