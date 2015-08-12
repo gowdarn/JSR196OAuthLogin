@@ -34,6 +34,17 @@
 			<role-name>api</role-name> 
 		</auth-constraint>
 	</security-constraint>
+    <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Protected UI</web-resource-name>
+			<url-pattern>/restricted/auth.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>mgr</role-name> 
+			<role-name>user</role-name>
+            <role-name>api</role-name>
+		</auth-constraint>
+	</security-constraint>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Protected UI</web-resource-name>
